@@ -389,7 +389,10 @@ def do_it():
                 if args.verbose:
                     sys.stderr.write(f"adding make_args: {make_args}\n")
         try:
-            subprocess.check_call(["make"] + make_args + archargs + [maketarget])
+            command = ["make"] + make_args + archargs + [maketarget]
+            if args.verbose:
+                print(f"calling: {command}")
+            subprocess.check_call(command)
         except Exception as exc:
             raise SilentError() from exc
 
@@ -401,7 +404,10 @@ def do_it():
 
     # Run the update target
     try:
-        subprocess.check_call(["make"] + archargs + [updatetarget])
+        command = ["make"] + archargs + [updatetarget]
+        if args.verbose:
+            print(f"calling: {command}")
+        subprocess.check_call(command)
     except Exception as exc:
         raise SilentError() from exc
 
